@@ -1,3 +1,18 @@
+Cisco IOS Command Reference is the ultimate source of information for a particular IOS command.
+
+Context-sensitive help enables you to quickly find answers to these questions:
+	Which commands are available in each command mode?
+	Which commands start with specific characters or group of characters?
+	Which arguments and keywords are available to particular commands?
+
+	To access context-sensitive help, simply enter a question mark, ?, at the CLI.
+
+##privileged exec mode command
+enable
+##global config mode
+configure terminal
+
+
 Line Configuration Mode - Used to configure console, SSH, Telnet, or AUX access.
 Switch(config-line)# 
 Interface Configuration Mode - Used to configure a switch port or router network interface.
@@ -13,3 +28,72 @@ Switch#
 
 Switch(config-line)# interface FastEthernet 0/1
 Switch(config-if)#
+
+
+##complex command with multiple arguments
+Switch(config-if)# switchport port-security aging { static | time time | type {absolute | inactivity}}
+
+
+Keystroke	Description
+Tab	Completes a partial command name entry.
+Backspace	Erases the character to the left of the cursor.
+Ctrl+D	Erases the character at the cursor.
+Ctrl+K	Erases all characters from the cursor to the end of the command line.
+Esc D	Erases all characters from the cursor to the end of the word.
+Ctrl+U or Ctrl+X	Erases all characters from the cursor back to the beginning of the command line.
+Ctrl+W	Erases the word to the left of the cursor.
+Ctrl+A	Moves the cursor to the beginning of the line.
+Left Arrowor Ctrl+B	Moves the cursor one character to the left.
+Esc B	Moves the cursor back one word to the left.
+Esc F	Moves the cursor forward one word to the right.
+Right Arrowor Ctrl+F	Moves the cursor one character to the right.
+Ctrl+E	Moves the cursor to the end of command line.
+Up Arrowor Ctrl+P	Recalls the previous command in the history buffer, beginning with the most recent command.
+Down Arrowor Ctrl+N	Goes to the next line in the the history buffer.
+Ctrl+R or Ctrl+I or Ctrl+L	Redisplays the system prompt and command line after a console message is received.
+
+
+Keystroke	Description
+Ctrl-C	When in any configuration mode, ends the configuration mode and returns to privileged EXEC mode. When in setup mode, aborts back to the command prompt.
+Ctrl-Z	When in any configuration mode, ends the configuration mode and returns to privileged EXEC mode.
+Ctrl-Shift-6	All-purpose break sequence used to abort DNS lookups, traceroutes, pings, etc.
+
+##use the CLI to apply the names to the devices
+Switch# configure terminal
+Switch(config)# hostname Sw-Floor-1
+Sw-Floor-1(config)#
+
+##To secure user EXEC mode access, enter line console configuration mode using the line console 0 global configuration command
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# line console 0
+Sw-Floor-1(config-line)# password cisco
+Sw-Floor-1(config-line)# login
+Sw-Floor-1(config-line)# end
+Sw-Floor-1#
+
+##To secure privileged EXEC access, use the enable secret password global config command, as shown in the example.
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# enable secret class
+Sw-Floor-1(config)# exit
+Sw-Floor-1#
+
+##To secure VTY lines, enter line VTY mode using the line vty 0 15 global config command. Next, specify the VTY password using the password password command. Lastly, enable VTY access using the login command.
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# line vty 0 15
+Sw-Floor-1(config-line)# password cisco 
+Sw-Floor-1(config-line)# login 
+Sw-Floor-1(config-line)# end
+Sw-Floor-1#
+
+##To encrypt all plaintext passwords, use the service password-encryption global config command as shown in the example.
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# service password-encryption
+Sw-Floor-1(config)#
+
+##Use the show running-config command to verify that passwords are now encrypted.
+Sw-Floor-1(config)# end
+Sw-Floor-1# show running-config
+
+##add a banner to the device output.
+Sw-Floor-1# configure terminal
+Sw-Floor-1(config)# banner motd #Authorized Access Only#
