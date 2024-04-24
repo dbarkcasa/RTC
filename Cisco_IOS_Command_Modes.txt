@@ -1,0 +1,15 @@
+Line Configuration Mode - Used to configure console, SSH, Telnet, or AUX access.
+Switch(config-line)# 
+Interface Configuration Mode - Used to configure a switch port or router network interface.
+Switch(config-if)#
+
+
+Switch(config)# line console 0
+Switch(config-line)# exit
+Switch(config)#
+
+Switch(config-line)# end
+Switch#
+
+Switch(config-line)# interface FastEthernet 0/1
+Switch(config-if)#
