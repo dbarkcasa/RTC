@@ -1,55 +1,33 @@
-# Imports the crypt module, which provides functions for hashing passwords
-import crypt
+import zipfile  # For handling ZIP files
 
-# Define a function named testPass that takes cryptPass (a hashed password) as an argument
-def testPass(cryptPass):
-    # Extracts the first two characters from the hashed password to get the salt value used in hashing
-    salt = cryptPass[0:2]
-    # Attempts to open the file dictionary.txt for reading. The try block handles potential errors like the file not being found
+def testPassword(zip_file_path, dictionary_file_path):
+    """Try each password from the dictionary on the ZIP file."""
     try:
-        dictFile = open('dictionary.txt', 'r')
-        # Iterates over each line in the dictionary file. 
-        for word in dictFile:
-            # Removes any leading or trailing whitespace (including newline characters) from each line
-            word = word.strip()
-            # Uses the crypt.crypt() function to hash the current word with the salt extracted earlier
-            cryptWord = crypt.crypt(word, salt)
-           # Compares the hashed word with the given hashed password
-            if cryptWord == cryptPass:
-                print('[+] Found Password: ' + word + '\n')
-                dictFile.close()
-                return
-        # Closes the dictionary file after processing all lines
-        dictFile.close()
-    # Catches a FileNotFoundError if the dictionary file is missing and prints an error message
+        # Open dictionary file
+        with open(dictionary_file_path, 'r') as dictFile:
+            # Go through each password in the file
+            for line in dictFile:
+                password = line.strip()  # Remove extra spaces
+                try:
+                    # Try to open ZIP file with this password
+                    with zipfile.ZipFile(zip_file_path, 'r') as zipFile:
+                        zipFile.extractall(pwd=password.encode())  # Need to encode password
+                        print(f'[+] Found Password: {password}\n')  # Print if it worked
+                        return  # Stop if found
+                except RuntimeError:
+                    # Password didn’t work, move to next
+                    continue
     except FileNotFoundError:
+        # Dictionary file not found
         print('[-] Dictionary file not found.\n')
-    # If no matching password is found, prints a message indicating this and exits the function
-    print('[-] Password Not Found.\n')
-    return
+    print('[-] Password Not Found.\n')  # No password found
 
-# Defines the main() function that will orchestrate the password cracking process
 def main():
-    try:
-        # Attempts to open the file passwords.txt for reading.
-        passFile = open('passwords.txt', 'r')
-        # Iterates over each line in the passwords file
-        for line in passFile:
-            # Checks if a colon (:) is present, which indicates that the line contains a username and a hashed password
-            if ':' in line:
-                # Splits the line at the colon into user and cryptPass
-                parts = line.split(':')
-                user = parts[0]
-                cryptPass = parts[1].strip()
-                #  Prints a message indicating which user’s password is being cracked
-                print('[*] Cracking Password For: ' + user)
-                # Calls the testPass() function to attempt to crack the hashed password
-                testPass(cryptPass)
-        # Calls the testPass() function to attempt to crack the hashed password
-        passFile.close()
-    # Catches a FileNotFoundError if the passwords file is missing and prints an error message    
-    except FileNotFoundError:
-        print('[-] Passwords file not found.\n')
-# Ensures that main() is called when the script is executed directly (not imported as a module in another script)
+    """Main function to start cracking."""
+    zip_file_path = 'protected.zip'  # ZIP file to crack
+    dictionary_file_path = 'dictionary.txt'  # Dictionary with passwords
+    testPassword(zip_file_path, dictionary_file_path)  # Run the test
+
 if __name__ == '__main__':
-    main()
+    main()  # Run main function if script is executed
+
