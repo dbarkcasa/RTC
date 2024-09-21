@@ -1,0 +1,40 @@
+# Get OS Information
+$osInfo = Get-WmiObject -Class Win32_OperatingSystem
+Write-Host "Operating System: $($osInfo.Caption)"
+Write-Host "Version: $($osInfo.Version)"
+Write-Host "Architecture: $($osInfo.OSArchitecture)"
+
+# Get Installed Software
+Write-Host "`nInstalled Software:"
+Get-WmiObject -Class Win32_Product | Select-Object Name, Version | Sort-Object Name
+
+# Get Network Configuration
+Write-Host "`nNetwork Configuration:"
+$networkAdapters = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.IPEnabled -eq "True" }
+foreach ($adapter in $networkAdapters) {
+    Write-Host "Adapter: $($adapter.Description)"
+    Write-Host "IP Address: $($adapter.IPAddress)"
+    Write-Host "MAC Address: $($adapter.MACAddress)"
+    Write-Host "Subnet Mask: $($adapter.IPSubnet)"
+    Write-Host "Default Gateway: $($adapter.DefaultIPGateway)"
+    Write-Host "------------------------"
+}
+
+# Get System Uptime
+$uptime = (Get-WmiObject -Class Win32_OperatingSystem).LastBootUpTime
+Write-Host "`nSystem Uptime: $((Get-Date) - $uptime).Days days"
+
+# Get CPU Info
+$cpu = Get-WmiObject -Class Win32_Processor
+Write-Host "`nCPU: $($cpu.Name)"
+Write-Host "Cores: $($cpu.NumberOfCores)"
+Write-Host "Logical Processors: $($cpu.NumberOfLogicalProcessors)"
+
+# Get Disk Information
+Write-Host "`nDisk Drives:"
+Get-WmiObject -Class Win32_LogicalDisk | Where-Object { $_.DriveType -eq 3 } | ForEach-Object {
+    Write-Host "Drive: $($_.DeviceID)"
+    Write-Host "Free Space: $([math]::round($_.FreeSpace/1GB,2)) GB"
+    Write-Host "Total Size: $([math]::round($_.Size/1GB,2)) GB"
+    Write-Host "------------------------"
+}
