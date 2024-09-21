@@ -36,8 +36,15 @@ foreach ($adapter in $networkAdapters) {
 # Uptime is calculated using the LastBootUpTime from Win32_OperatingSystem
 $uptime = (Get-WmiObject -Class Win32_OperatingSystem).LastBootUpTime
 
-# Output how long the system has been up, in days
-Write-Host "`nSystem Uptime: $((Get-Date) - $uptime).Days days"
+# Convert LastBootUpTime to a proper DateTime object
+$uptime = (Get-WmiObject -Class Win32_OperatingSystem).LastBootUpTime
+$uptimeDate = [System.Management.ManagementDateTimeConverter]::ToDateTime($uptime)
+
+# Calculate the system uptime by subtracting the boot time from the current date
+$uptimeDifference = (Get-Date) - $uptimeDate
+
+# Output the system uptime in days
+Write-Host "`nSystem Uptime: $($uptimeDifference.Days) days"
 
 # Get CPU Information
 # Using Win32_Processor to retrieve CPU details
