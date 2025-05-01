@@ -1,0 +1,121 @@
+/* Reset the default styling rules for browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+/* Styling Rules for the body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(78, 21, 223);
+    display: grid;
+    grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "footer";
+    grid-template-columns: lfr;
+    gap: 10px;
+    padding: 10px;
+    min-height: 100vh;
+    color: rgb(163, 79, 180);
+}
+
+/* header styling rules */
+header {
+    grid-area: header;
+    background-color: #313030a8;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* nav styling rules */
+nav {
+    grid-area: nav;
+    background-color: #636563a8;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;    
+}
+
+/* navigation links */
+nav a{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #636563a8;
+}
+
+nav a:hover{
+    background-color: #313030a8;
+    transition: all 0.3s ease-in-out;
+}
+
+/* main styling rules */
+main{
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: stretch;
+    padding: 1rem;
+}
+
+.welcome{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.sidebar{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.feature{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* cards styling rules */
+section, article, aside {
+    background-color: #d8e2cdcb;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
+}
+
+/* cards hover effect */
+section:hover, article:hover, aside:hover {
+    background-color: #313030a8;
+    transform: translateY(-5px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* footer styling rules */
+footer {
+    grid-area: footer;
+    background-color: #313030a8;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
