@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Magic 8 Ball</title>
+   <meta charset="UTF-8">
+</head>
+<body>
+   <h1>Magic 8 Ball</h1>
+   <script>
+
+   // Possible 8 Ball responses
+   let responses = [ "Yes", "Maybe later", "Trust me you dont want to know", "Its hard to say", "I have a headache Ask again later", "Dont bet on it", "It is known", "Meh", "Probably", "No", "It doesnt look good", "Dont know Dont care", "Absolutely", "Stormy weather ahead", "I am certain of it", "That sounds awful", "Definitely", "Yes Break out the champagne", "Even a blind squirrel finds a nut sometimes", "So let it be written So let it be done" ];
+
+   // Display a randomly chosen response
+   let randomNum = Math.floor(Math.random() * responses.length);
+   document.writeln("<p>Magic 8 Ball says... <strong>" + responses[randomNum] + "</strong>.</p>");
+
+   </script>
+</body>
+</html>
