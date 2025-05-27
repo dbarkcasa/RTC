@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <table>
+        <caption>Red Rocks, Colorado</caption>
+        <tr>
+            <th>Photo</th>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><img src="vacation1.jpg" alt="View from the top row of Red Rocks"></td>
+            <td>Jan 16, 2018</td>
+            <td>View from the top row; sitting area holds 9,525 people</td>
+        </tr>
+        <tr>
+            <td><img src="vacation2.jpg" alt="South view of Red Rocks amphitheater"></td>
+            <td>Feb 20, 2017</td>
+            <td>Facing south from the top of the amphitheater</td>
+        </tr>
+        <tr>
+            <td><img src="vacation3.jpg" alt="Nearby red rocks above sea level"></td>
+            <td>Mar 30, 2019</td>
+            <td>Nearby red rocks sit 6,450 feet (1,970 m) above sea level</td>
+        </tr>
+        <tr>
+            <td colspan="3">Copyright © 2023 Zippy Photographers</td>
+        </tr>
+    </table>
+</body>
+</html>
