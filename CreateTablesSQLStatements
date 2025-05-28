@@ -1,0 +1,25 @@
+CREATE TABLE Student (
+  ID INT IDENTITY(1,1) PRIMARY KEY,
+  FullName NVARCHAR(100),
+  Email NVARCHAR(100)
+ );
+ 
+ CREATE TABLE Industry (
+  ID INT IDENTITY(1,1) PRIMARY KEY,
+  IndustryName NVARCHAR(100),
+  Description NVARCHAR(255)
+ );
+  
+ CREATE TABLE ProjectGroup (
+  ID INT IDENTITY(1,1) PRIMARY KEY,
+  GroupName NVARCHAR(100),
+  IndustryID INT FOREIGN KEY REFERENCES Industry(ID)
+ );
+   
+ CREATE TABLE Deliverable (
+  ID INT IDENTITY(1,1) PRIMARY KEY,
+  Title NVARCHAR(100),
+  SubmissionDate DATE,
+  Grade INT,
+  ProjectGroupID INT FOREIGN KEY REFERENCES ProjectGroup(ID)
+ );
